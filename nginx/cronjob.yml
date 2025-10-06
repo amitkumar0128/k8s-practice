@@ -1,0 +1,20 @@
+kind: CronJob
+apiVersion: batch/v1
+metadata:
+  name: demo-cronjob
+  namespace: nginx
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: demo-cronjob
+            image: busybox:latest
+            imagePullPolicy: IfNotPresent
+            command:
+            - sh
+            - -c
+            - date; echo "This is a CronJob"
+          restartPolicy: OnFailure

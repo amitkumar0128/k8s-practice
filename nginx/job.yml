@@ -1,0 +1,15 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: demo-job
+  namespace: nginx
+spec:
+  ttlSecondsAfterFinished: 10   # automatically deletes after job completion
+  template:
+    spec:
+      containers:
+      - name: demo-job
+        image: busybox:latest
+        command: ["sh", "-c", "echo 'Job Completed'"]
+      restartPolicy: Never      # does not allow the failed pod to restart
+  backoffLimit: 4               # number of retries by creating new fresh job
