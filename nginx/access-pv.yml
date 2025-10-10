@@ -1,0 +1,23 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx-pod
+  namespace: nginx
+spec:
+  containers:
+  - name: nginx-pod
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    command:
+    - sh
+    - -c
+    - cp -r /usr/share/nginx/html/ /message
+    volumeMounts:
+    - mountPath: /message
+      name: local-storage
+  restartPolicy: OnFailure
+  volumes:
+  - name: local-storage
+    persistentVolumeClaim:
+      claimName: nginx-pvc
