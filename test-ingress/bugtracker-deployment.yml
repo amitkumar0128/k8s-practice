@@ -1,0 +1,20 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bugtracker-deployment
+  namespace: test-ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bugtracker
+  template:
+    metadata:
+      labels:
+        app: bugtracker
+    spec:
+      containers:
+      - name: bugtracker
+        image: akj49/bugtracker:latest
+        ports:
+        - containerPort: 8000

@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: bugtracker-service
+  namespace: test-ingress
+spec:
+  selector:
+    app: bugtracker
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
