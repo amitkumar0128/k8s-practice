@@ -1,0 +1,20 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: todo-deployment-nginx
+  namespace: todo-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-nginx
+  template:
+    metadata:
+      labels:
+        app: todo-nginx
+    spec:
+      containers:
+      - name: todo-nginx
+        image: akj49/django-nginx:latest
+        ports:
+        - containerPort: 80

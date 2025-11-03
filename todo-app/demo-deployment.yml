@@ -1,0 +1,68 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: todo-deployment
+  namespace: todo-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+      - name: django-app
+        image: akj49/django-todo-app:latest
+        command: ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 todo_project.wsgi"]
+        ports:
+        - containerPort: 8000
+        env:
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: db_name
+          - name: DB_USER
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: db_user
+          - name: DB_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: db_password
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: db_host
+          - name: IP
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: ip
+
+      - name: mysql
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: mysql_root_password
+          - name: MYSQL_DATABASE
+            valueFrom:
+              configMapKeyRef:
+                name: todo-data
+                key: mysql_database
+
+      - name: todo-nginx
+        image: akj49/django-nginx:latest
+        ports:
+        - containerPort: 80
