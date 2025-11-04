@@ -21,11 +21,11 @@ spec:
         env:
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: mysql_root_password
           - name: MYSQL_DATABASE
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: mysql_database

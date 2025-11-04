@@ -22,26 +22,26 @@ spec:
         env:
           - name: DB_NAME
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: db_name
           - name: DB_USER
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: db_user
           - name: DB_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: db_password
           - name: DB_HOST
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: db_host
           - name: IP
             valueFrom:
-              configMapKeyRef:
-                name: todo-data
+              secretKeyRef:
+                name: todo-secret
                 key: ip

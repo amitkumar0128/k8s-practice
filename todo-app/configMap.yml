@@ -4,8 +4,6 @@ metadata:
   name: todo-data
   namespace: todo-ns
 data:
-  mysql_database: "todo-db"
-  mysql_root_password: "root"
   db_name: "todo-db"
   db_user: "root"
   db_password: "root"
