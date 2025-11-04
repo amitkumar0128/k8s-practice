@@ -16,6 +16,13 @@ spec:
       containers:
       - name: django-app
         image: akj49/django-todo-app:latest
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "200Mi"
+          requests:
+            cpu: "50m"
+            memory: "100Mi"
         command: ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 todo_project.wsgi"]
         ports:
         - containerPort: 8000
