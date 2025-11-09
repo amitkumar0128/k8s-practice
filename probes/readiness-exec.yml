@@ -1,0 +1,22 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: readiness-exec
+spec:
+  containers:
+  - name: readiness
+    image: busybox:latest
+    args:
+    - /bin/sh
+    - -c
+    - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
+    readinessProbe:
+      exec:
+        command:
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+      # Readiness probes are configured similarly to liveness probes.
+      # The only difference is that you use the readinessProbe field instead of the livenessProbe field.
