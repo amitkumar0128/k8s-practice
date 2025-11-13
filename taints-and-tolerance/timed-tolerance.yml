@@ -1,0 +1,18 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: toleration-pod
+spec:
+  tolerations:
+  - key: "prod"
+    operator: "Equal"
+    value: "True"
+    effect: "NoExecute"
+    tolerationSeconds: 300
+  containers:
+  - name: toleration
+    image: busybox:latest
+    command:
+    - sh
+    - -c
+    - echo "This is a Test Pod for taint and tolerations."
